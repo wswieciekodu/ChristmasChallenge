@@ -1,3 +1,6 @@
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class Day1_Cities {
 
     /**
@@ -15,8 +18,24 @@ public class Day1_Cities {
      */
 
     public static void main(String[] args) {
+        double firstCityX = 1;
+        double firstCityY = 1;
+        double secondCityX = 4;
+        double secondCityY = 5;
+        double thirdCityX = 11;
+        double thirdCityY = 5;
 
-        double neededPetrol = 0.0; //TODO: calculate
+        double distanceBetweenFirstAndSecond = calculateDistanceBetweenPoints(firstCityX, firstCityY, secondCityX, secondCityY);
+        double distanceBetweenSecondAndThird = calculateDistanceBetweenPoints(secondCityX, secondCityY, thirdCityX, thirdCityY);
 
+        double fullDistance = distanceBetweenFirstAndSecond + distanceBetweenSecondAndThird;
+
+        double neededPetrol = fullDistance / 10 * 20;
+
+        System.out.println("Needed petrol: " + neededPetrol);
+    }
+
+    static double calculateDistanceBetweenPoints(double x1, double y1, double x2, double y2) {
+        return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
     }
 }
