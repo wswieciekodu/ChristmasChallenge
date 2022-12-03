@@ -11,9 +11,21 @@ public class Day3_ChristmasTree {
 
     public static void main(String[] args) {
 
-        int height = 15;
+        int height = 5;
 
-        // TODO: prepare function which draw christmas tree;
+        drawChristmasTree(height);
     }
 
+    private static void drawChristmasTree(int height) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x <= height * 2; x++) {
+                if (y >= height - x && y >= x - height) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
 }
