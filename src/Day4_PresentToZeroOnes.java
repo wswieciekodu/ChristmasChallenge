@@ -1,3 +1,4 @@
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Day4_PresentToZeroOnes {
@@ -20,7 +21,56 @@ public class Day4_PresentToZeroOnes {
                 "Hat", "Tea", "Coffee", "Clock", "Bag",
                 "Book", "Wallet", "Cream", "Earrings");
 
-        // TODO: Add your code here
+        System.out.println("Gift ideas to bites - step by step: ");
+        convertGiftsToBitesStepByStep(ideas);
+        System.out.println("Gift ideas to bites - using functions: ");
+        convertGiftsToBitesUsingFunctions(ideas);
     }
 
+    private static void convertGiftsToBitesUsingFunctions(List<String> ideas) {
+        for (String idea : ideas) {
+            System.out.print(idea + ": ");
+            byte[] bytes = idea.getBytes(StandardCharsets.UTF_8);
+
+            for (byte b : bytes) {
+                System.out.print(Integer.toBinaryString(b) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void convertGiftsToBitesStepByStep(List<String> ideas) {
+        for (String idea : ideas) {
+            System.out.print(idea + ": ");
+            byte[] bytes = getBytesFromString(idea);
+
+            for (byte b : bytes) {
+                System.out.print(convertDecimalToBinary(b) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static byte[] getBytesFromString(String idea) {
+        byte[] utf8Codes = new byte[idea.length()];
+        for (int i = 0; i < idea.length(); i++) {
+            char charAt = idea.charAt(i);
+            utf8Codes[i] = (byte) charAt;
+        }
+
+        return utf8Codes;
+    }
+
+    private static String convertDecimalToBinary(byte decimal) {
+        StringBuilder binary = new StringBuilder();
+
+        while (decimal > 0) {
+            int rest = decimal % 2;
+            binary.append(rest);
+
+            decimal = (byte) (decimal / 2);
+        }
+
+        return binary.reverse().toString();
+    }
 }
