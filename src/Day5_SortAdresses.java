@@ -19,7 +19,35 @@ public class Day5_SortAdresses {
 
         List<Address> addresses = prepareAddresses();
 
-        //TODO: sort addresses by city
+        // sortUsingComparator(addresses);
+
+        // sortUsingListSortAndComparator(addresses);
+
+        notModifyingListSortUsingStreamsAndComparator(addresses);
+    }
+
+    private static void notModifyingListSortUsingStreamsAndComparator(List<Address> addresses) {
+        addresses.stream()
+                .sorted(Comparator.comparing(Address::getCity))
+                .forEach(System.out::println);
+    }
+
+    private static void sortUsingListSortAndComparator(List<Address> addresses) {
+        addresses.sort(Comparator.comparing(Address::getCity));
+        addresses.forEach(System.out::println);
+    }
+
+    private static void sortUsingComparator(List<Address> addresses) {
+        addresses.sort(new Comparator<Address>() {
+            @Override
+            public int compare(Address address, Address otherAddress) {
+                return address.getCity().compareTo(otherAddress.getCity());
+            }
+        });
+
+        for (Address address : addresses) {
+            System.out.println(address);
+        }
     }
 
     private static List<Address> prepareAddresses() {
