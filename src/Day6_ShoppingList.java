@@ -1,9 +1,9 @@
 import model.Recipe;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 
 public class Day6_ShoppingList {
 
@@ -18,11 +18,31 @@ public class Day6_ShoppingList {
     public static void main(String[] args) {
         List<Recipe> recipes = prepareRecipes();
 
-        Map<String, Integer> shoppingList = new HashMap<>();
-
-        // TODO: prepare shopping list for all recipes
+        // Shorter version with stream
+        Map<String, Integer> shoppingList = recipes.stream()
+                .map(Recipe::getIngredients)
+                .map(Map::entrySet)
+                .flatMap(Set::stream)
+                .collect(groupingBy(Map.Entry::getKey, summingInt(Map.Entry::getValue)));
 
         System.out.println(shoppingList);
+
+        // Step by step version
+        Map<String, Integer> shoppingListNoStream = new HashMap<>();
+        for (Recipe recipe : recipes) {
+            for (Map.Entry<String, Integer> ingredient : recipe.getIngredients().entrySet()) {
+                String ingredientName = ingredient.getKey();
+                Integer amount = shoppingListNoStream.get(ingredientName);
+
+                if (Objects.nonNull(amount)) {
+                    shoppingListNoStream.put(ingredientName, shoppingListNoStream.get(ingredientName) + ingredient.getValue());
+                } else {
+                    shoppingListNoStream.put(ingredientName, ingredient.getValue());
+                }
+            }
+        }
+
+        System.out.println(shoppingListNoStream);
     }
 
     private static List<Recipe> prepareRecipes() {
