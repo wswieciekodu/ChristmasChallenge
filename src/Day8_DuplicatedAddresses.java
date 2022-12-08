@@ -1,7 +1,9 @@
 import model.Address;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Day8_DuplicatedAddresses {
 
@@ -14,8 +16,23 @@ public class Day8_DuplicatedAddresses {
     public static void main(String[] args) {
         List<Address> addresses = prepareAddresses();
 
-        //TODO: Deduplicate list
-        
+        // Solution 1 - using Set to deduplicate, NOT MODIFYING input list
+        List<Address> deduplicatedUsingSet = new ArrayList<>(new HashSet<>(addresses));
+
+        // Solution 2 - with stream, NOT MODIFYING input list
+        List<Address> deduplicatedUsingStream = addresses.stream().distinct().toList();
+
+        // Solution 3 - Basic, simplest way with two loops, NOT MODIFYING input list
+        for (int i = 0; i < addresses.size(); i++) {
+            for (int j = i + 1; j < addresses.size(); j++) {
+                if (addresses.get(i).equals(addresses.get(j))) {
+                    addresses.remove(addresses.get(j));
+                    j--;
+                }
+            }
+        }
+
+        System.out.println(addresses);
     }
 
     private static List<Address> prepareAddresses() {
