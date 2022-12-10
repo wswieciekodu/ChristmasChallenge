@@ -1,3 +1,5 @@
+import static java.lang.Math.*;
+
 public class Day10_ChristmasCandy {
 
     /**
@@ -10,8 +12,36 @@ public class Day10_ChristmasCandy {
 
     public static void main(String[] args) {
 
-        int height = 13;
+        int height = 16;
 
-        // TODO: prepare function which draw in console christmas candy
+        drawCandy(height);
+    }
+
+    private static void drawCandy(int height) {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_RED = "\u001B[31m";
+
+        int radius = height / 4;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x <= height / 2; x++) {
+                int circleFormula = (int) (sqrt(pow(x - radius, 2) + pow(y - radius, 2)));
+                boolean yLessThanHalfCircle = y <= radius;
+                boolean aroundCircle = circleFormula == radius;
+                boolean xLocatedAtLastVerticalLine = x == height / 2;
+                boolean yBelowHalfCircle = y >= radius;
+
+                if (yLessThanHalfCircle && aroundCircle || xLocatedAtLastVerticalLine && yBelowHalfCircle) {
+                    boolean isLineEven = y % 2 == 0;
+                    if (isLineEven) {
+                        System.out.print(ANSI_RED + "*" + ANSI_RESET);
+                    } else {
+                        System.out.print("*");
+                    }
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
