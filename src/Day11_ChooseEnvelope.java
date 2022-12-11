@@ -18,7 +18,26 @@ public class Day11_ChooseEnvelope {
         Envelope medium = new Envelope(20, 30);
         Envelope big = new Envelope(30, 30);
 
-        // TODO: Write code which help to choose one of the envelopes (small, medium or big) for each gift
+        System.out.println("Available envelopes: " + small + " " + medium + " " + big + "\n");
+
+        for (Gift gift : gifts) {
+            if (gift.getHeight() <= small.getHeight() && gift.getWidth() <= small.getWidth()
+                    || gift.getHeight() <= small.getWidth() && gift.getWidth() <= small.getHeight()) {
+                System.out.println("Small " + small + " is ok for gift: " + gift);
+                continue;
+            }
+
+            if (gift.getHeight() <= medium.getHeight() && gift.getWidth() <= medium.getWidth()
+                    || gift.getHeight() <= medium.getWidth() && gift.getWidth() <= medium.getHeight()) {
+                System.out.println("Medium " + medium + " is ok for gift: " + gift);
+                continue;
+            }
+
+            if (gift.getHeight() <= big.getHeight() && gift.getWidth() <= big.getWidth()
+                    || gift.getHeight() <= big.getWidth() && gift.getWidth() <= big.getHeight()) {
+                System.out.println("Big " + big + " is ok for gift: " + gift);
+            }
+        }
 
     }
 
