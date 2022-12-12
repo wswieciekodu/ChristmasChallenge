@@ -15,7 +15,13 @@ public class Day12_PrintLabels {
 
         List<ChildWithAddress> children = prepareChildren();
 
-        // TODO: Print labels
+        for (ChildWithAddress child : children) {
+            System.out.println(child.getName() + " " + child.getSurname());
+            Address address = child.getAddress();
+            System.out.println("ul. " + address.getStreet() + " " + address.getNumber() + "/" + address.getFlatNumber());
+            System.out.println(address.getZipCode() + " " + address.getCity());
+            System.out.println("----------------------------");
+        }
     }
 
     private static List<ChildWithAddress> prepareChildren() {
