@@ -12,6 +12,31 @@ public class Day14_SplitPresentsList {
         String giftsList = "Kuba klocki klawiatura dron quad, Alicja komputer samochod mysz, "
                 + "Janina ksiazka traktor, Tomek kuchenka koparka flamastry, ";
 
-        // TODO: Split string and print children name => gifts in one line
+        String[] splitBySpace = giftsList.split(" ");
+
+        splitGiftsStringStepByStep(splitBySpace);
+        splitGiftsStringUsingRegex(giftsList);
+    }
+
+    private static void splitGiftsStringStepByStep(String[] splitBySpace) {
+        System.out.println("Split string with gifts step by step:");
+        for (String string : splitBySpace) {
+            if (string.contains(",")) {
+                System.out.print(string.substring(0, string.length() - 1));
+                System.out.println();
+            } else if (Character.isUpperCase(string.charAt(0))) {
+                System.out.print(string + " => ");
+            } else {
+                System.out.print(string + ",");
+            }
+        }
+    }
+
+    private static void splitGiftsStringUsingRegex(String giftsList) {
+        System.out.println("\nSplit string with gifts one line using regex:");
+        String formatted = giftsList.replaceAll(", ", "\n")
+                .replaceAll("[A-Z][a-z]*", "$0 =>")
+                .replaceAll("\\b(?!>)\s(?!=)", ",");
+        System.out.println(formatted);
     }
 }
