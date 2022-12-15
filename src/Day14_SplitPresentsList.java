@@ -12,13 +12,12 @@ public class Day14_SplitPresentsList {
         String giftsList = "Kuba klocki klawiatura dron quad, Alicja komputer samochod mysz, "
                 + "Janina ksiazka traktor, Tomek kuchenka koparka flamastry, ";
 
-        String[] splitBySpace = giftsList.split(" ");
-
-        splitGiftsStringStepByStep(splitBySpace);
+        splitGiftsStringStepByStep(giftsList);
         splitGiftsStringUsingRegex(giftsList);
     }
 
-    private static void splitGiftsStringStepByStep(String[] splitBySpace) {
+    private static void splitGiftsStringStepByStep(String giftsList) {
+        String[] splitBySpace = giftsList.split(" ");
         System.out.println("Split string with gifts step by step:");
         for (String string : splitBySpace) {
             if (string.contains(",")) {
