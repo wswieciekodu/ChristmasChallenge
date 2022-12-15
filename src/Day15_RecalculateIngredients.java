@@ -1,7 +1,8 @@
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Math.PI;
+import static java.lang.Math.*;
 
 public class Day15_RecalculateIngredients {
 
@@ -24,8 +25,36 @@ public class Day15_RecalculateIngredients {
                 "Maslo", 200
         );
 
-        // TODO: prepare function which calculate amount of ingredients for circle form
+        double rectangleFormXDimension = 20;
+        double rectangleFormYDimension = 30;
 
+        double circleFormDiameter = 9.8;
+
+        Map<String, String> ingredientsForCircleForm = recalculateIngredientsForCircleForm(
+                ingredientsForRectangleForm,
+                rectangleFormXDimension,
+                rectangleFormYDimension,
+                circleFormDiameter);
+
+        System.out.println(ingredientsForCircleForm);
     }
 
+    private static Map<String, String> recalculateIngredientsForCircleForm(Map<String, Integer> ingredients, double rectangleX, double rectangleY, double circleDiameter) {
+        double rectangleArea = rectangleX * rectangleY;
+        double radius = circleDiameter / 2;
+        double circleArea = PI * radius * radius;
+
+        Map<String, String> ingredientsForCircle = new HashMap<>();
+
+        double ratio = circleArea / rectangleArea;
+        DecimalFormat twoPlacesAfterDot = new DecimalFormat("#.#");
+
+        for (Map.Entry<String, Integer> ingredientToAmount : ingredients.entrySet()) {
+            double recalculatedIngredientAmount = ratio * ingredientToAmount.getValue();
+            String formattedRecalculatedIngredientAmount = twoPlacesAfterDot.format(recalculatedIngredientAmount);
+            ingredientsForCircle.put(ingredientToAmount.getKey(), formattedRecalculatedIngredientAmount);
+        }
+
+        return ingredientsForCircle;
+    }
 }
