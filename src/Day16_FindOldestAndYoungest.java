@@ -1,6 +1,7 @@
 import model.ChildWithBirthDate;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 public class Day16_FindOldestAndYoungest {
@@ -15,7 +16,39 @@ public class Day16_FindOldestAndYoungest {
 
         List<ChildWithBirthDate> children = prepareChildren();
 
-        // TODO: show youngest and oldest child
+        showYoungestOldestStepByStep(children);
+        showYoungestOldestWithStream(children);
+    }
+
+
+    private static void showYoungestOldestStepByStep(List<ChildWithBirthDate> children) {
+        ChildWithBirthDate oldest = children.get(0);
+        ChildWithBirthDate youngest = children.get(0);
+
+        for (int i = 1; i < children.size(); i++) {
+            if (children.get(i).getDateOfBirth().isAfter(youngest.getDateOfBirth())) {
+                youngest = children.get(i);
+            }
+
+            if (children.get(i).getDateOfBirth().isBefore(oldest.getDateOfBirth())) {
+                oldest = children.get(i);
+            }
+        }
+
+        System.out.println("Oldest: " + oldest);
+        System.out.println("Youngest: " + youngest);
+    }
+
+    private static void showYoungestOldestWithStream(List<ChildWithBirthDate> children) {
+        children
+                .stream()
+                .min(Comparator.comparing(ChildWithBirthDate::getDateOfBirth))
+                .ifPresent(oldest -> System.out.println("Oldest: " + oldest));
+
+        children
+                .stream()
+                .max(Comparator.comparing(ChildWithBirthDate::getDateOfBirth))
+                .ifPresent(youngest -> System.out.println("Youngest: " + youngest));
     }
 
     private static List<ChildWithBirthDate> prepareChildren() {
