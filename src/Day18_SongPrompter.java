@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 public class Day18_SongPrompter {
     /**
      * W świeta lubimy śpiewać koledy i świąteczne piosenki. Przygotuj prompter dla koledy lub piosenki.
@@ -5,7 +7,7 @@ public class Day18_SongPrompter {
      * Przykladowy tekst znajdziesz ponizej, ale mozesz zamienić go na tekst Twojej ulubionej piosenki lub koledy!
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         String lyrics = "Bog sie rodzi, moc truchleje\n"
                 + "Pan niebiosow obnazony!\n"
@@ -16,7 +18,11 @@ public class Day18_SongPrompter {
                 + "A Slowo Cialem sie stalo\n"
                 + "I mieszkalo miedzy nami";
 
-        // TODO: prepare song prompter
+        String[] lines = lyrics.split("\n");
 
+        for (String line : lines) {
+            System.out.println(line);
+            TimeUnit.SECONDS.sleep(3);
+        }
     }
 }
