@@ -1,3 +1,7 @@
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class Day20_JingleRhythm {
 
     /**
@@ -7,7 +11,7 @@ public class Day20_JingleRhythm {
      * Przykładowo 300ms * czas określony dla nuty w tablicy. Dla efektu dźwiękowego możesz też użyć beep!
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         int[] tones = {
                 2, 2, 4, 2, 2, 4, 2, 2, 2, 1, 8, 2, 2, 2, 1, 2, 2, 2, 1, 1,
@@ -17,7 +21,10 @@ public class Day20_JingleRhythm {
                 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8
         };
 
-        // TODO: Show star for as long as tone in table, to make better effect use "beep" function
-
+        for (int tone : tones) {
+            System.out.print("* ");
+            Toolkit.getDefaultToolkit().beep();
+            TimeUnit.MILLISECONDS.sleep(tone * 300);
+        }
     }
 }
