@@ -14,7 +14,18 @@ public class Day21_SwapValues {
         System.out.println("Before switch: places = " + places);
         System.out.println("Before switch: reindeers = " + reindeers);
 
-        // TODO: swap values not using any additional variable
+        // Solution 1
+        places += reindeers;
+        reindeers = places - reindeers;
+        places = places - reindeers;
+
+        // Solution 2
+//        places = places + reindeers - (reindeers = places);
+
+        // Solution 3
+//        places = places ^ reindeers;
+//        reindeers = places ^ reindeers;
+//        places = places ^ reindeers;
 
         System.out.println("After switch: places = " + places);
         System.out.println("After switch: reindeers = " + reindeers);
