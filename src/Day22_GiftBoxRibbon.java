@@ -13,6 +13,17 @@ public class Day22_GiftBoxRibbon {
         Box box = new Box(10, 13, 15);
         int boxesAmount = 5;
 
-        //TODO: calculate how many meters of ribbon Santa needs to buy
+        double neededRibbonInCm = boxesAmount * calculateRibbonForBox(box.getZ(), box.getY(), box.getX());
+        double neededRibbonInM = convertCmToM(neededRibbonInCm);
+
+        System.out.println("Santa needs " + neededRibbonInM + " m of ribbon.");
+    }
+
+    private static double convertCmToM(double cm) {
+        return cm / 100.0;
+    }
+
+    private static double calculateRibbonForBox(int longestSide, int mediumSide, int shortestSide) {
+        return (2 * longestSide + 2 * shortestSide + 2 * mediumSide + 2 * shortestSide) * 1.5;
     }
 }
